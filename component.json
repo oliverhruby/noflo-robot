@@ -9,15 +9,43 @@
     "noflo/noflo": "*"
   },
   "scripts": [
-    "index.js"
+    "index.js",
+    "graphs/Accelerometer.json",
+    "graphs/BatteryStatus.json",
+    "graphs/Beeper.json",
+    "graphs/Camera.json",
+    "graphs/FaceRecognition.json",
+    "graphs/Gamepad.json",
+    "graphs/Network.json",
+    "graphs/Robot.json",
+    "graphs/SpeechRecognition.json",
+    "graphs/SunCalc.json",
+    "graphs/Three.json",
+    "graphs/VideoEffects.json",
+    "graphs/Weather.json",
+    "graphs/WebSocket.json",
+    "graphs/main.json"
   ],
   "json": [
     "component.json",
+    "graphs/Accelerometer.json",
+    "graphs/BatteryStatus.json",
+    "graphs/Beeper.json",
+    "graphs/Camera.json",
+    "graphs/FaceRecognition.json",
+    "graphs/Gamepad.json",
+    "graphs/Network.json",
+    "graphs/Robot.json",
+    "graphs/SpeechRecognition.json",
+    "graphs/SunCalc.json",
     "graphs/Three.json",
+    "graphs/VideoEffects.json",
+    "graphs/Weather.json",
+    "graphs/WebSocket.json",
     "graphs/main.json"
   ],
   "noflo": {
-    "components": { },
+    "icon": "wrench",
     "graphs": {
       "Accelerometer": "graphs/Accelerometer.json",
       "BatteryStatus": "graphs/BatteryStatus.json",
