@@ -1,0 +1,26 @@
+{
+  "name": "noflo-robot",
+  "description": "Robot control based on noflo",
+  "author": "Oliver Hruby <oliverhruby@gmail.com>",
+  "repo": "oliverhruby/noflo-robot",
+  "version": "0.1.0",
+  "keywords": [],
+  "dependencies": {
+    "noflo/noflo": "*"
+  },
+  "scripts": [
+    "index.js"
+  ],
+  "json": [
+    "component.json",
+    "graphs/Three.json",
+    "graphs/main.json"
+  ],
+  "noflo": {
+    "components": { },
+    "graphs": {
+      "Three": "graphs/Three.json",
+      "main": "graphs/main.json"
+    }
+  }
+}
