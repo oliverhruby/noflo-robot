@@ -19,7 +19,20 @@
   "noflo": {
     "components": { },
     "graphs": {
+      "Accelerometer": "graphs/Accelerometer.json",
+      "BatteryStatus": "graphs/BatteryStatus.json",
+      "Beeper": "graphs/Beeper.json",
+      "Camera": "graphs/Camera.json",
+      "FaceRecognition": "graphs/FaceRecognition.json",
+      "Gamepad": "graphs/Gamepad.json",
+      "Network": "graphs/Network.json",
+      "Robot": "graphs/Robot.json",
+      "SpeechRecognition": "graphs/SpeechRecognition.json",
+      "SunCalc": "graphs/SunCalc.json",
       "Three": "graphs/Three.json",
+      "VideoEffects": "graphs/VideoEffects.json",
+      "Weather": "graphs/Weather.json",
+      "WebSocket": "graphs/WebSocket.json",
       "main": "graphs/main.json"
     }
   }

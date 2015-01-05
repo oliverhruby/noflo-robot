@@ -1,0 +1,236 @@
+{
+    "properties": {
+        "name": "WebSocket",
+        "environment": {
+            "type": "noflo-browser",
+            "content": "<input type=\"text\" id=\"websocket_message\" value=\"test\" />\n<input type=\"button\" id=\"websocket_send\" value=\"Send\" />\n<div id=\"websocket_received\"></div>"
+        },
+        "description": "WebSocket communication module",
+        "icon": ""
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "Connection": {
+            "component": "sensors/WebSocket",
+            "metadata": {
+                "label": "Connection",
+                "x": 36,
+                "y": 576,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Send": {
+            "component": "websocket/SendMessage",
+            "metadata": {
+                "label": "Send",
+                "x": 180,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Listen": {
+            "component": "websocket/ListenMessages",
+            "metadata": {
+                "label": "Listen",
+                "x": 180,
+                "y": 540,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": 180,
+                "y": 396,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "html": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "html",
+                "x": 324,
+                "y": 540,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "click event": {
+            "component": "dom/Listen",
+            "metadata": {
+                "label": "click event",
+                "x": 144,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Send button": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "Send button",
+                "x": 36,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "value": {
+            "component": "dom/GetAttribute",
+            "metadata": {
+                "label": "value",
+                "x": 36,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Message input_o16o0": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "Message input",
+                "x": -72,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "Connection",
+                "port": "connection"
+            },
+            "tgt": {
+                "process": "Send",
+                "port": "connection"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "Connection",
+                "port": "connection"
+            },
+            "tgt": {
+                "process": "Listen",
+                "port": "connection"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "element",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "html",
+                "port": "container"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "Listen",
+                "port": "string"
+            },
+            "tgt": {
+                "process": "html",
+                "port": "html"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "Send button",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "click event",
+                "port": "element"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "value",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Send",
+                "port": "string"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "Message input_o16o0",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "value",
+                "port": "element"
+            },
+            "metadata": {}
+        },
+        {
+            "data": "wss://echo.websocket.org",
+            "tgt": {
+                "process": "Connection",
+                "port": "url"
+            }
+        },
+        {
+            "data": "test",
+            "tgt": {
+                "process": "Send",
+                "port": "string"
+            }
+        },
+        {
+            "data": "#websocket_received",
+            "tgt": {
+                "process": "element",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#websocket_send",
+            "tgt": {
+                "process": "Send button",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "click",
+            "tgt": {
+                "process": "click event",
+                "port": "type"
+            }
+        },
+        {
+            "data": "value",
+            "tgt": {
+                "process": "value",
+                "port": "attribute"
+            }
+        },
+        {
+            "data": "#websocket_message",
+            "tgt": {
+                "process": "Message input_o16o0",
+                "port": "selector"
+            }
+        }
+    ]
+}

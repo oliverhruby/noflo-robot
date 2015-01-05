@@ -1,0 +1,223 @@
+{
+    "properties": {
+        "name": "Network",
+        "environment": {
+            "type": "noflo-browser",
+            "content": "<div>\n  <div id=\"network_ip\"></div>\n  <div id=\"network_provider\"></div>\n</div>"
+        },
+        "icon": ""
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "Get": {
+            "component": "ajax/Get",
+            "metadata": {
+                "label": "Get",
+                "x": -324,
+                "y": 108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Parse_5aui5": {
+            "component": "strings/ParseJson",
+            "metadata": {
+                "label": "Parse",
+                "x": -216,
+                "y": 108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "'query'": {
+            "component": "objects/ExtractProperty",
+            "metadata": {
+                "label": "'query'",
+                "x": -108,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "'isp'": {
+            "component": "objects/ExtractProperty",
+            "metadata": {
+                "label": "'isp'",
+                "x": -108,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "div_dvbv3": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "div",
+                "x": 0,
+                "y": 0,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/GetElement_zgtgh": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "div",
+                "x": 0,
+                "y": 108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "show_6anll": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "show",
+                "x": 108,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/WriteHtml_4tdk5": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "show",
+                "x": 108,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "Get",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Parse_5aui5",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "Parse_5aui5",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "'query'",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "Parse_5aui5",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "'isp'",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "div_dvbv3",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "show_6anll",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "'query'",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "show_6anll",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "dom/GetElement_zgtgh",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_4tdk5",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "'isp'",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_4tdk5",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "data": "http://ip-api.com/json",
+            "tgt": {
+                "process": "Get",
+                "port": "url"
+            }
+        },
+        {
+            "data": "query",
+            "tgt": {
+                "process": "'query'",
+                "port": "key"
+            }
+        },
+        {
+            "data": "isp",
+            "tgt": {
+                "process": "'isp'",
+                "port": "key"
+            }
+        },
+        {
+            "data": "#network_ip",
+            "tgt": {
+                "process": "div_dvbv3",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#network_provider",
+            "tgt": {
+                "process": "dom/GetElement_zgtgh",
+                "port": "selector"
+            }
+        }
+    ]
+}

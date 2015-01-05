@@ -1,0 +1,109 @@
+{
+    "properties": {
+        "name": "Camera",
+        "environment": {
+            "type": "noflo-browser"
+        }
+    },
+    "inports": {
+        "camera_8lip5.start": {
+            "process": "Camera_8lip5",
+            "port": "start"
+        }
+    },
+    "outports": {
+        "src.element": {
+            "process": "src",
+            "port": "element"
+        }
+    },
+    "groups": [],
+    "processes": {
+        "Camera_8lip5": {
+            "component": "gum/GetUserMedia",
+            "metadata": {
+                "label": "Camera",
+                "x": -144,
+                "y": 720,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": -144,
+                "y": 612,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "src": {
+            "component": "dom/SetAttribute",
+            "metadata": {
+                "label": "src",
+                "x": -36,
+                "y": 684,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "element",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "src",
+                "port": "element"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Camera_8lip5",
+                "port": "url"
+            },
+            "tgt": {
+                "process": "src",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "data": "src",
+            "tgt": {
+                "process": "src",
+                "port": "attribute"
+            }
+        },
+        {
+            "data": "true",
+            "tgt": {
+                "process": "Camera_8lip5",
+                "port": "video"
+            }
+        },
+        {
+            "data": "#camera",
+            "tgt": {
+                "process": "element",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "false",
+            "tgt": {
+                "process": "Camera_8lip5",
+                "port": "audio"
+            }
+        }
+    ]
+}

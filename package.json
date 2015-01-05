@@ -1,0 +1,60 @@
+{
+  "name": "noflo-robot",
+  "description": "Robot control using noflo",
+  "version": "0.1.0",
+  "author": {
+    "name": "Oliver Hruby",
+    "email": "oliverhruby@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/oliverhruby/noflo-robot.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "undefined/blob/master/LICENSE-MIT"
+    }
+  ],
+  "scripts": {
+    "test": "grunt test"
+  },
+  "dependencies": {
+    "noflo": "~0.5.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-coffee": "~0.10.1",
+    "grunt-coffeelint": "~0.0.10",
+    "grunt-cafe-mocha": "~0.1.12",
+    "chai": "~1.5.0",
+    "mocha": "~1.9.0",
+    "grunt-mocha-phantomjs": "~0.2.2",
+    "grunt-contrib-uglify": "~0.2.0",
+    "grunt-contrib-watch": "~0.3.1",
+    "grunt-noflo-manifest": "~0.1.11",
+    "grunt-noflo-browser": "^0.1.1"
+  },
+  "keywords": [],
+  "noflo": {
+    "components": {
+    },
+    "graphs": {
+      "Accelerometer": "graphs/Accelerometer.json",
+      "BatteryStatus": "graphs/BatteryStatus.json",
+      "Beeper": "graphs/Beeper.json",
+      "Camera": "graphs/Camera.json",
+      "FaceRecognition": "graphs/FaceRecognition.json",
+      "Gamepad": "graphs/Gamepad.json",
+      "Network": "graphs/Network.json",
+      "Robot": "graphs/Robot.json",
+      "SpeechRecognition": "graphs/SpeechRecognition.json",
+      "SunCalc": "graphs/SunCalc.json",
+      "Three": "graphs/Three.json",
+      "VideoEffects": "graphs/VideoEffects.json",
+      "Weather": "graphs/Weather.json",
+      "WebSocket": "graphs/WebSocket.json",
+      "main": "graphs/main.json"
+    }
+ }
+}

@@ -1,0 +1,183 @@
+{
+    "properties": {
+        "name": "FaceRecognition",
+        "environment": {
+            "type": "noflo-browser"
+        }
+    },
+    "inports": {
+        "image": {
+            "process": "Track Face",
+            "port": "image",
+            "metadata": {
+                "x": 396,
+                "y": 1080,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "Track Face": {
+            "component": "clmtrackr/TrackFace",
+            "metadata": {
+                "label": "Track Face",
+                "x": 540,
+                "y": 1080,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Wireframe": {
+            "component": "clmtrackr/WireframeFace",
+            "metadata": {
+                "label": "Wireframe",
+                "x": 648,
+                "y": 1080,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Stroke": {
+            "component": "canvas/Stroke",
+            "metadata": {
+                "label": "Stroke",
+                "x": 756,
+                "y": 1080,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Draw": {
+            "component": "canvas/Draw",
+            "metadata": {
+                "label": "Draw",
+                "x": 864,
+                "y": 1044,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element_y6fju": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": 756,
+                "y": 972,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "Track Face",
+                "port": "points"
+            },
+            "tgt": {
+                "process": "Wireframe",
+                "port": "points"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Wireframe",
+                "port": "paths"
+            },
+            "tgt": {
+                "process": "Stroke",
+                "port": "items"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Stroke",
+                "port": "stroke"
+            },
+            "tgt": {
+                "process": "Draw",
+                "port": "commands"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "element_y6fju",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "Draw",
+                "port": "canvas"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Track Face",
+                "port": "points"
+            },
+            "tgt": {
+                "process": "Draw",
+                "port": "tick"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "data": "true",
+            "tgt": {
+                "process": "Stroke",
+                "port": "closepath"
+            }
+        },
+        {
+            "data": "#drawing",
+            "tgt": {
+                "process": "element_y6fju",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "false",
+            "tgt": {
+                "process": "Draw",
+                "port": "drawevery"
+            }
+        },
+        {
+            "data": "true",
+            "tgt": {
+                "process": "Draw",
+                "port": "clearevery"
+            }
+        },
+        {
+            "data": "lightgreen",
+            "tgt": {
+                "process": "Stroke",
+                "port": "strokestyle"
+            }
+        },
+        {
+            "data": "0.3",
+            "tgt": {
+                "process": "Stroke",
+                "port": "linewidth"
+            }
+        }
+    ]
+}

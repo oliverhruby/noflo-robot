@@ -1,0 +1,407 @@
+{
+    "properties": {
+        "name": "Accelerometer",
+        "environment": {
+            "type": "noflo-browser",
+            "content": "<div class=\"panel\">\n    <div class=\"header\">Accelerometer</div>\n    <div class=\"sensor\">\n        <span class=\"label\">Alpha:</span>\n        <span class=\"value\" id=\"accelerometer_alpha\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Beta:</span>\n        <span class=\"value\" id=\"accelerometer_beta\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Gamma:</span>\n        <span class=\"value\" id=\"accelerometer_gamma\"></span>\n    </div>\n</div>\n"
+        },
+        "icon": ""
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "2 places": {
+            "component": "core/MakeFunction",
+            "metadata": {
+                "x": 468,
+                "y": 216,
+                "width": 72,
+                "height": 72,
+                "label": "2 places"
+            }
+        },
+        "2 places_siltr": {
+            "component": "core/MakeFunction",
+            "metadata": {
+                "x": 468,
+                "y": 324,
+                "width": 72,
+                "height": 72,
+                "label": "2 places"
+            }
+        },
+        "2 places_drtt3": {
+            "component": "core/MakeFunction",
+            "metadata": {
+                "x": 468,
+                "y": 432,
+                "width": 72,
+                "height": 72,
+                "label": "2 places"
+            }
+        },
+        "element_9faxr": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "x": 612,
+                "y": 216,
+                "width": 72,
+                "height": 72,
+                "label": "element"
+            }
+        },
+        "alpha": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "x": 720,
+                "y": 216,
+                "width": 72,
+                "height": 72,
+                "label": "alpha"
+            }
+        },
+        "element": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "x": 612,
+                "y": 324,
+                "width": 72,
+                "height": 72,
+                "label": "element"
+            }
+        },
+        "beta": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "x": 720,
+                "y": 324,
+                "width": 72,
+                "height": 72,
+                "label": "beta"
+            }
+        },
+        "element_s2ahq": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "x": 612,
+                "y": 432,
+                "width": 72,
+                "height": 72,
+                "label": "element"
+            }
+        },
+        "gamma": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "x": 720,
+                "y": 432,
+                "width": 72,
+                "height": 72,
+                "label": "gamma"
+            }
+        },
+        "Drop": {
+            "component": "core/Drop",
+            "metadata": {
+                "x": 468,
+                "y": 612,
+                "width": 72,
+                "height": 72,
+                "label": "Drop"
+            }
+        },
+        "DeviceOrientation": {
+            "component": "sensors/DeviceOrientation",
+            "metadata": {
+                "x": 252,
+                "y": 360,
+                "width": 72,
+                "height": 72,
+                "label": "DeviceOrientation"
+            }
+        },
+        "start": {
+            "component": "core/Repeat",
+            "metadata": {
+                "label": "start",
+                "x": 0,
+                "y": 360,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Frame": {
+            "component": "dom/RequestAnimationFrame",
+            "metadata": {
+                "label": "Frame",
+                "x": 108,
+                "y": 360,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "element_9faxr",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "alpha",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "2 places",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "alpha",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "element",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "beta",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "2 places_siltr",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "beta",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "element_s2ahq",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "gamma",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "2 places_drtt3",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "gamma",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "DeviceOrientation",
+                "port": "alpha"
+            },
+            "tgt": {
+                "process": "2 places",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "DeviceOrientation",
+                "port": "beta"
+            },
+            "tgt": {
+                "process": "2 places_siltr",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "DeviceOrientation",
+                "port": "gamma"
+            },
+            "tgt": {
+                "process": "2 places_drtt3",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "DeviceOrientation",
+                "port": "absolute"
+            },
+            "tgt": {
+                "process": "Drop",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "DeviceOrientation",
+                "port": "removed"
+            },
+            "tgt": {
+                "process": "Drop",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "Frame",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "DeviceOrientation",
+                "port": "start"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "start",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Frame",
+                "port": "start"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "data": "return x.toFixed(2);",
+            "tgt": {
+                "process": "2 places",
+                "port": "function"
+            }
+        },
+        {
+            "data": "return x.toFixed(2);",
+            "tgt": {
+                "process": "2 places_drtt3",
+                "port": "function"
+            }
+        },
+        {
+            "data": "return x.toFixed(2);",
+            "tgt": {
+                "process": "2 places_siltr",
+                "port": "function"
+            }
+        },
+        {
+            "data": "#accelerometer_alpha",
+            "tgt": {
+                "process": "element_9faxr",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#accelerometer_beta",
+            "tgt": {
+                "process": "element",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#accelerometer_gamma",
+            "tgt": {
+                "process": "element_s2ahq",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#accelerometer_gamma",
+            "tgt": {
+                "process": "element_s2ahq",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#accelerometer_beta",
+            "tgt": {
+                "process": "element",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#accelerometer_alpha",
+            "tgt": {
+                "process": "element_9faxr",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "return x.toFixed(2);",
+            "tgt": {
+                "process": "2 places_drtt3",
+                "port": "function"
+            }
+        },
+        {
+            "data": "return x.toFixed(2);",
+            "tgt": {
+                "process": "2 places_siltr",
+                "port": "function"
+            }
+        },
+        {
+            "data": "return x.toFixed(2);",
+            "tgt": {
+                "process": "2 places",
+                "port": "function"
+            }
+        },
+        {
+            "data": "0",
+            "tgt": {
+                "process": "start",
+                "port": "in"
+            }
+        }
+    ]
+}

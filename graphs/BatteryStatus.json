@@ -1,0 +1,163 @@
+{
+    "properties": {
+        "name": "BatteryStatus",
+        "environment": {
+            "type": "noflo-browser",
+            "content": "<div>\n  <span>Level: </span>\n  <span id=\"battery_level\"></span>\n</div>\n<div>\n  <span>Charging: </span>\n  <span id=\"battery_charging\"></span>\n</div>"
+        },
+        "icon": ""
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "Start": {
+            "component": "core/Repeat",
+            "metadata": {
+                "label": "Start",
+                "x": -144,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": 252,
+                "y": 72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Write": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "Write",
+                "x": 360,
+                "y": 72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Battery": {
+            "component": "sensors/BatteryStatus",
+            "metadata": {
+                "label": "Battery",
+                "x": 0,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element_t1isq": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": 252,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Write_cz399": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "Write",
+                "x": 360,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "element",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "Write",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Start",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Battery",
+                "port": "start"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "element_t1isq",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "Write_cz399",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Battery",
+                "port": "charging"
+            },
+            "tgt": {
+                "process": "Write_cz399",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "Battery",
+                "port": "level"
+            },
+            "tgt": {
+                "process": "Write",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "data": "0",
+            "tgt": {
+                "process": "Start",
+                "port": "in"
+            }
+        },
+        {
+            "data": "#battery_level",
+            "tgt": {
+                "process": "element",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#battery_charging",
+            "tgt": {
+                "process": "element_t1isq",
+                "port": "selector"
+            }
+        }
+    ]
+}

@@ -1,0 +1,230 @@
+{
+    "properties": {
+        "name": "SunCalc",
+        "environment": {
+            "type": "noflo-browser",
+            "content": "<div class=\"panel\">\n    <div class=\"header\">Sun Position</div>\n    <div class=\"sensor\">\n        <span class=\"label\">Sun altitude: </span>\n        <span class=\"value\" id=\"sun_position_altitude\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Sun azimuth: </span>\n        <span class=\"value\" id=\"sun_position_azimuth\"></span>\n    </div>\n</div>"
+        },
+        "description": "Sun and moon calculations",
+        "icon": "sun-o"
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "Output": {
+            "component": "core/Output",
+            "metadata": {
+                "label": "Output",
+                "x": -720,
+                "y": 288,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Sun Position": {
+            "component": "suncalc/SunPosition",
+            "metadata": {
+                "label": "Sun Position",
+                "x": -864,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "2 places_n1gmp": {
+            "component": "core/MakeFunction",
+            "metadata": {
+                "label": "2 places",
+                "x": -720,
+                "y": 72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/MakeFunction_jkxz9": {
+            "component": "core/MakeFunction",
+            "metadata": {
+                "label": "2 places",
+                "x": -720,
+                "y": 180,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element_4uk7j": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": -612,
+                "y": 108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "show_34397": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "show",
+                "x": -504,
+                "y": 72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element_ancoa": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": -612,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "show_klhhm": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "show",
+                "x": -504,
+                "y": 180,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "Sun Position",
+                "port": "altitude"
+            },
+            "tgt": {
+                "process": "Output",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "Sun Position",
+                "port": "azimuth"
+            },
+            "tgt": {
+                "process": "Output",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "Sun Position",
+                "port": "altitude"
+            },
+            "tgt": {
+                "process": "2 places_n1gmp",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "Sun Position",
+                "port": "azimuth"
+            },
+            "tgt": {
+                "process": "core/MakeFunction_jkxz9",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "element_4uk7j",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "show_34397",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "2 places_n1gmp",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "show_34397",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "element_ancoa",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "show_klhhm",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "core/MakeFunction_jkxz9",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "show_klhhm",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "data": 0,
+            "tgt": {
+                "process": "Sun Position",
+                "port": "latitude"
+            }
+        },
+        {
+            "data": 0,
+            "tgt": {
+                "process": "Sun Position",
+                "port": "longitude"
+            }
+        },
+        {
+            "data": "return x.toFixed(2);",
+            "tgt": {
+                "process": "2 places_n1gmp",
+                "port": "function"
+            }
+        },
+        {
+            "data": "return x.toFixed(2);",
+            "tgt": {
+                "process": "core/MakeFunction_jkxz9",
+                "port": "function"
+            }
+        }
+    ]
+}

@@ -1,0 +1,553 @@
+{
+    "properties": {
+        "name": "Weather",
+        "environment": {
+            "type": "noflo-browser",
+            "content": "\n<div class=\"panel\">\n    <div class=\"header\">Weather</div>\n    <div class=\"sensor\">\n        <span class=\"label\">Weather: </span>\n        <span class=\"value\" id=\"weather_main\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Temperature: </span>\n        <span class=\"value\" id=\"weather_temp\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Wind speed: </span>\n        <span class=\"value\" id=\"weather_wind_speed\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Pressure: </span>\n        <span class=\"value\" id=\"weather_pressure\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Humidity: </span>\n        <span class=\"value\" id=\"weather_humidity\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Clouds: </span>\n        <span class=\"value\" id=\"weather_clouds\"></span>\n    </div>\n</div>\n"
+        },
+        "icon": ""
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "ajax/Get_pin7l": {
+            "component": "ajax/Get",
+            "metadata": {
+                "label": "Get",
+                "x": 1080,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Parse": {
+            "component": "strings/ParseJson",
+            "metadata": {
+                "label": "Parse",
+                "x": 1188,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element_b50yn": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": 1512,
+                "y": 72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "show": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "show",
+                "x": 1620,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element_b3jtr": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": 1512,
+                "y": 180,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/WriteHtml_jmsrd": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "show",
+                "x": 1620,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element_j0gpa": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": 1512,
+                "y": 288,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/WriteHtml_mbrwr": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "show",
+                "x": 1620,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element_hfh83": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": 1512,
+                "y": 504,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "show_ii6x": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "show",
+                "x": 1620,
+                "y": 468,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element_4g3yo": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": 1512,
+                "y": 396,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "dom/WriteHtml_kbn7g": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "show",
+                "x": 1620,
+                "y": 360,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element_gouhn": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": 1512,
+                "y": 612,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "show_zzzaz": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "show",
+                "x": 1620,
+                "y": 576,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "weather / main": {
+            "component": "core/MakeFunction",
+            "metadata": {
+                "label": "weather / main",
+                "x": 1404,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "main / temp": {
+            "component": "core/MakeFunction",
+            "metadata": {
+                "label": "main / temp",
+                "x": 1404,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "main / humidity": {
+            "component": "core/MakeFunction",
+            "metadata": {
+                "label": "main / humidity",
+                "x": 1404,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "wind / speed": {
+            "component": "core/MakeFunction",
+            "metadata": {
+                "label": "wind / speed",
+                "x": 1404,
+                "y": 468,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "cloud / all": {
+            "component": "core/MakeFunction",
+            "metadata": {
+                "label": "cloud / all",
+                "x": 1404,
+                "y": 576,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "main / pressure": {
+            "component": "core/MakeFunction",
+            "metadata": {
+                "label": "main / pressure",
+                "x": 1404,
+                "y": 360,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "ajax/Get_pin7l",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Parse",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "element_b50yn",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "show",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "element_b3jtr",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_jmsrd",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "element_j0gpa",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_mbrwr",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "element_hfh83",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "show_ii6x",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "element_4g3yo",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_kbn7g",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "element_gouhn",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "show_zzzaz",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Parse",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "weather / main",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "weather / main",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "show",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "Parse",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "main / temp",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "main / temp",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_jmsrd",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "Parse",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "main / humidity",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "main / humidity",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_mbrwr",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "Parse",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "wind / speed",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "wind / speed",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "show_ii6x",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "Parse",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "cloud / all",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "cloud / all",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "show_zzzaz",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "Parse",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "main / pressure",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "main / pressure",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "dom/WriteHtml_kbn7g",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "data": "http://api.openweathermap.org/data/2.5/weather?q=Malacky,sk&units=metric",
+            "tgt": {
+                "process": "ajax/Get_pin7l",
+                "port": "url"
+            }
+        },
+        {
+            "data": "#weather_main",
+            "tgt": {
+                "process": "element_b50yn",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#weather_temp",
+            "tgt": {
+                "process": "element_b3jtr",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#weather_humidity",
+            "tgt": {
+                "process": "element_j0gpa",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#weather_wind_speed",
+            "tgt": {
+                "process": "element_hfh83",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#weather_pressure",
+            "tgt": {
+                "process": "element_4g3yo",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#weather_clouds",
+            "tgt": {
+                "process": "element_gouhn",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "return x.clouds.all + '%';",
+            "tgt": {
+                "process": "cloud / all",
+                "port": "function"
+            }
+        },
+        {
+            "data": "return x.weather[0].description;",
+            "tgt": {
+                "process": "weather / main",
+                "port": "function"
+            }
+        },
+        {
+            "data": "return x.main.humidity + '%';",
+            "tgt": {
+                "process": "main / humidity",
+                "port": "function"
+            }
+        },
+        {
+            "data": "return x.main.temp.toFixed(0) + '°C';",
+            "tgt": {
+                "process": "main / temp",
+                "port": "function"
+            }
+        },
+        {
+            "data": "return x.main.pressure.toFixed(0) + 'hPa';",
+            "tgt": {
+                "process": "main / pressure",
+                "port": "function"
+            }
+        },
+        {
+            "data": "return x.wind.speed.toFixed(0) + 'm/s';",
+            "tgt": {
+                "process": "wind / speed",
+                "port": "function"
+            }
+        }
+    ]
+}

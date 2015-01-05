@@ -1,0 +1,366 @@
+{
+    "properties": {
+        "name": "Three",
+        "environment": {
+            "type": "noflo-browser",
+            "content": "<div id=\"scene\" style=\"width:640px;height:480px;\"></div>"
+        },
+        "icon": ""
+    },
+    "inports": {
+        "radius": {
+            "process": "Sphere",
+            "port": "radius",
+            "metadata": {
+                "x": 324,
+                "y": 108,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "Scene": {
+            "component": "three/Scene",
+            "metadata": {
+                "label": "Scene",
+                "x": 756,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "WebGLRenderer": {
+            "component": "three/WebGLRenderer",
+            "metadata": {
+                "label": "WebGLRenderer",
+                "x": 900,
+                "y": 108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "div": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "div",
+                "x": 756,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Camera": {
+            "component": "three/Camera",
+            "metadata": {
+                "label": "Camera",
+                "x": 756,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Mesh": {
+            "component": "three/Mesh",
+            "metadata": {
+                "label": "Mesh",
+                "x": 648,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Material": {
+            "component": "three/MeshBasicMaterial",
+            "metadata": {
+                "label": "Material",
+                "x": 540,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Vector3": {
+            "component": "three/Vector3",
+            "metadata": {
+                "label": "Vector3",
+                "x": 648,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Color": {
+            "component": "canvas/MakeColor",
+            "metadata": {
+                "label": "Color",
+                "x": 432,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Sphere": {
+            "component": "three/SphereGeometry",
+            "metadata": {
+                "label": "Sphere",
+                "x": 540,
+                "y": 108,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Start": {
+            "component": "core/Repeat",
+            "metadata": {
+                "label": "Start",
+                "x": 648,
+                "y": 396,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Frame": {
+            "component": "dom/RequestAnimationFrame",
+            "metadata": {
+                "label": "Frame",
+                "x": 756,
+                "y": 396,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "div",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "WebGLRenderer",
+                "port": "element"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Scene",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "WebGLRenderer",
+                "port": "scene"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Camera",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "WebGLRenderer",
+                "port": "camera"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "Material",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Mesh",
+                "port": "material"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "Color",
+                "port": "color"
+            },
+            "tgt": {
+                "process": "Material",
+                "port": "color"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "Vector3",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Camera",
+                "port": "position"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "Sphere",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Mesh",
+                "port": "geometry"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "Mesh",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Scene",
+                "port": "children"
+            },
+            "metadata": {
+                "route": 3
+            }
+        },
+        {
+            "src": {
+                "process": "Start",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Frame",
+                "port": "start"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "Frame",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "WebGLRenderer",
+                "port": "tick"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "data": "#scene",
+            "tgt": {
+                "process": "div",
+                "port": "selector"
+            }
+        },
+        {
+            "data": 100,
+            "tgt": {
+                "process": "Vector3",
+                "port": "y"
+            }
+        },
+        {
+            "data": 100,
+            "tgt": {
+                "process": "Vector3",
+                "port": "z"
+            }
+        },
+        {
+            "data": 40,
+            "tgt": {
+                "process": "Color",
+                "port": "hue"
+            }
+        },
+        {
+            "data": 1,
+            "tgt": {
+                "process": "Color",
+                "port": "alpha"
+            }
+        },
+        {
+            "data": 100,
+            "tgt": {
+                "process": "Vector3",
+                "port": "x"
+            }
+        },
+        {
+            "data": 640,
+            "tgt": {
+                "process": "WebGLRenderer",
+                "port": "width"
+            }
+        },
+        {
+            "data": 480,
+            "tgt": {
+                "process": "WebGLRenderer",
+                "port": "height"
+            }
+        },
+        {
+            "data": 32,
+            "tgt": {
+                "process": "Sphere",
+                "port": "heightsegments"
+            }
+        },
+        {
+            "data": 32,
+            "tgt": {
+                "process": "Sphere",
+                "port": "widthsegments"
+            }
+        },
+        {
+            "data": "0",
+            "tgt": {
+                "process": "Start",
+                "port": "in"
+            }
+        },
+        {
+            "data": "1",
+            "tgt": {
+                "process": "Sphere",
+                "port": "radius"
+            }
+        },
+        {
+            "data": 30,
+            "tgt": {
+                "process": "Color",
+                "port": "lightness"
+            }
+        },
+        {
+            "data": "20",
+            "tgt": {
+                "process": "Color",
+                "port": "saturation"
+            }
+        }
+    ]
+}

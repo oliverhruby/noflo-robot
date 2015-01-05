@@ -1,0 +1,976 @@
+{
+    "properties": {
+        "name": "Robot",
+        "environment": {
+            "type": "noflo-browser",
+            "content": "<style>\n.wrapper {\n    position: relative;\n    width: 640px;\n    height: 480px;\n}\n\n.wrapper canvas {\n    position: absolute;\n    top: 0;\n    left: 0;\n}\n\n.header {\n    font-style: uppercase;\n    color: #4488aa;\n}\n.sensor .label {} .sensor .value {\n    font-weight: bold;\n    color: green;\n}\n.panel {\n    padding: 10px;\n    margin: 10px;\n    background-color: #112233;\n    width: 240px;\n}\n</style>\n<script src=\"http://threejs.org/build/three.min.js\"></script>\n\n<div id=\"scene\"></div>\n\n<div class=\"wrapper\">\n    <video id=\"camera\" autoplay loop width=\"640\" height=\"480\" style=\"display:none\"></video>\n    <canvas id=\"out\" width=\"640\" height=\"480\" style=\"max-width:100%;\"></canvas>\n    <canvas id=\"drawing\" width=\"640\" height=\"480\" style=\"border: 1px solid #5577aa\"></canvas>\n</div>\n\n<div class=\"panel\">\n    <div class=\"header\">Accelerometer</div>\n    <div class=\"sensor\">\n        <span class=\"label\">Alpha:</span>\n        <span class=\"value\" id=\"accelerometer_alpha\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Beta:</span>\n        <span class=\"value\" id=\"accelerometer_beta\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Gamma:</span>\n        <span class=\"value\" id=\"accelerometer_gamma\"></span>\n    </div>\n</div>\n\n<div class=\"panel\">\n    <div class=\"header\">Geolocation</div>\n    <div class=\"sensor\">\n        <span class=\"label\">Latitude: </span>\n        <span class=\"value\" id=\"geolocation_latitude\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Longitude: </span>\n        <span class=\"value\" id=\"geolocation_longitude\"></span>\n    </div>\n</div>\n\n<div class=\"panel\">\n    <div class=\"header\">Sun Position</div>\n    <div class=\"sensor\">\n        <span class=\"label\">Sun altitude: </span>\n        <span class=\"value\" id=\"sun_position_altitude\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Sun azimuth: </span>\n        <span class=\"value\" id=\"sun_position_azimuth\"></span>\n    </div>\n</div>\n\n<div class=\"panel\">\n    <div class=\"header\">Speech</div>\n    <div class=\"sensor\">\n        <span class=\"label\">Command: </span>\n        <span class=\"value\">\n      <input type=\"text\" id=\"command\"></input>\n      <button id=\"btnCommand\">Go</button>\n    </span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Log: </span>\n        <span class=\"value\" id=\"speech\"></span>\n    </div>\n</div>\n\n<div class=\"panel\">\n    <div class=\"header\">Keyboard input</div>\n    <div class=\"sensor\">\n        <span class=\"label\">Key: </span>\n        <span class=\"value\" id=\"keyboard\"></span>\n    </div>\n</div>\n\n<div class=\"panel\">\n    <div class=\"header\">Gamepad</div>\n    <div class=\"sensor\">\n        <span class=\"label\">Model: </span>\n        <span class=\"value\" id=\"gamepad_name\">Xbox One</span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">State: </span>\n        <span class=\"value\" id=\"gamepad_state\">???</span>\n    </div>\n</div>\n\n<div class=\"panel\">\n    <div class=\"header\">Network information</div>\n    <div class=\"sensor\">\n        <span class=\"label\">IP address: </span>\n        <span class=\"value\" id=\"network_ip\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Provider: </span>\n        <span class=\"value\" id=\"network_provider\"></span>\n    </div>\n</div>\n\n<div class=\"panel\">\n    <div class=\"header\">Weather</div>\n    <div class=\"sensor\">\n        <span class=\"label\">Weather: </span>\n        <span class=\"value\" id=\"weather_main\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Temperature: </span>\n        <span class=\"value\" id=\"weather_temp\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Wind speed: </span>\n        <span class=\"value\" id=\"weather_wind_speed\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Pressure: </span>\n        <span class=\"value\" id=\"weather_pressure\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Humidity: </span>\n        <span class=\"value\" id=\"weather_humidity\"></span>\n    </div>\n    <div class=\"sensor\">\n        <span class=\"label\">Clouds: </span>\n        <span class=\"value\" id=\"weather_clouds\"></span>\n    </div>\n</div>\n\n\n<input id=\"button_voice\" type=\"button\" value=\"Voice Input\" onlick=\"initialize()\"></input>\n"
+        },
+        "description": "Simulation of a robotic arm",
+        "icon": "cube"
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [
+        {
+            "name": "Sound module",
+            "nodes": [
+                "Gain",
+                "Oscillator",
+                "Play"
+            ],
+            "metadata": {
+                "description": ""
+            }
+        },
+        {
+            "name": "Speech Recognition",
+            "nodes": [
+                "Speech div",
+                "Voice Button",
+                "On Click",
+                "Write Text",
+                "Listen"
+            ],
+            "metadata": {
+                "description": ""
+            }
+        },
+        {
+            "name": "Geolocation",
+            "nodes": [],
+            "metadata": {
+                "description": ""
+            }
+        },
+        {
+            "name": "Video",
+            "nodes": [
+                "Get camera div",
+                "Read camera",
+                "Set src"
+            ],
+            "metadata": {
+                "description": ""
+            }
+        },
+        {
+            "name": "Text to speech",
+            "nodes": [],
+            "metadata": {
+                "description": ""
+            }
+        },
+        {
+            "name": "Canvas drawing",
+            "nodes": [
+                "Draw",
+                "Drawing div",
+                "Fill",
+                "Make Circle",
+                "Make Point"
+            ],
+            "metadata": {
+                "description": ""
+            }
+        },
+        {
+            "name": "Character AI",
+            "nodes": [],
+            "metadata": {
+                "description": ""
+            }
+        },
+        {
+            "name": "Touch input",
+            "nodes": [
+                "area",
+                "drop",
+                "listen"
+            ],
+            "metadata": {
+                "description": ""
+            }
+        },
+        {
+            "name": "Keyboard input",
+            "nodes": [
+                "ASCII to Char",
+                "Get body",
+                "Get div",
+                "Listen key",
+                "Write key"
+            ],
+            "metadata": {
+                "description": ""
+            }
+        },
+        {
+            "name": "Compass",
+            "nodes": [
+                "Output_dzmzd"
+            ],
+            "metadata": {
+                "description": ""
+            }
+        },
+        {
+            "name": "Video filters",
+            "nodes": [
+                "Get canvas",
+                "Night Vision",
+                "Source",
+                "Target"
+            ],
+            "metadata": {
+                "description": ""
+            }
+        },
+        {
+            "name": "Network info",
+            "nodes": [],
+            "metadata": {
+                "description": ""
+            }
+        }
+    ],
+    "processes": {
+        "Oscillator": {
+            "component": "webaudio/Oscillator",
+            "metadata": {
+                "label": "Oscillator",
+                "x": 684,
+                "y": 1008,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Gain": {
+            "component": "webaudio/Gain",
+            "metadata": {
+                "label": "Gain",
+                "x": 792,
+                "y": 1008,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Play": {
+            "component": "webaudio/Play",
+            "metadata": {
+                "label": "Play",
+                "x": 900,
+                "y": 1008,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Motion to frequency": {
+            "component": "math/Multiply",
+            "metadata": {
+                "label": "Motion to frequency",
+                "x": 432,
+                "y": 1008,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Read camera": {
+            "component": "gum/GetUserMedia",
+            "metadata": {
+                "label": "Read camera",
+                "x": 432,
+                "y": 756,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Get camera div": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "Get camera div",
+                "x": 432,
+                "y": 648,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Listen": {
+            "component": "interaction/ListenSpeech",
+            "metadata": {
+                "label": "Listen",
+                "x": -576,
+                "y": 432,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "On Click": {
+            "component": "dom/Listen",
+            "metadata": {
+                "label": "On Click",
+                "x": -684,
+                "y": 432,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Voice Button": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "Voice Button",
+                "x": -792,
+                "y": 432,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Listen key": {
+            "component": "interaction/ListenKeyboard",
+            "metadata": {
+                "label": "Listen key",
+                "x": -144,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Get body": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "Get body",
+                "x": -252,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "area": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "area",
+                "x": 324,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "listen": {
+            "component": "interaction/ListenTouch",
+            "metadata": {
+                "label": "listen",
+                "x": 432,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Speech div": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "Speech div",
+                "x": -576,
+                "y": 540,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Write Text": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "Write Text",
+                "x": -468,
+                "y": 504,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Set src": {
+            "component": "dom/SetAttribute",
+            "metadata": {
+                "label": "Set src",
+                "x": 576,
+                "y": 720,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Run": {
+            "component": "core/RunInterval",
+            "metadata": {
+                "label": "Run",
+                "x": -756,
+                "y": 828,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Source": {
+            "component": "seriously/SetSource",
+            "metadata": {
+                "label": "Source",
+                "x": 864,
+                "y": 720,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Target": {
+            "component": "seriously/SetTarget",
+            "metadata": {
+                "label": "Target",
+                "x": 1152,
+                "y": 756,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Get canvas": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "Get canvas",
+                "x": 1008,
+                "y": 828,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Night Vision": {
+            "component": "seriously/NightVision",
+            "metadata": {
+                "label": "Night Vision",
+                "x": 1008,
+                "y": 612,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Draw": {
+            "component": "canvas/Draw",
+            "metadata": {
+                "label": "Draw",
+                "x": 1044,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Make Circle": {
+            "component": "canvas/MakeCircle",
+            "metadata": {
+                "label": "Make Circle",
+                "x": 828,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Make Point": {
+            "component": "canvas/MakePoint",
+            "metadata": {
+                "label": "Make Point",
+                "x": 720,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Fill": {
+            "component": "canvas/Fill",
+            "metadata": {
+                "label": "Fill",
+                "x": 936,
+                "y": 324,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Drawing div": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "Drawing div",
+                "x": 936,
+                "y": 216,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Get div": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "Get div",
+                "x": -144,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Write key": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "Write key",
+                "x": 0,
+                "y": 180,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "ASCII to Char": {
+            "component": "core/MakeFunction",
+            "metadata": {
+                "label": "ASCII to Char",
+                "x": -36,
+                "y": 72,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "drop": {
+            "component": "core/Drop",
+            "metadata": {
+                "label": "drop",
+                "x": 540,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Output_dzmzd": {
+            "component": "core/Output",
+            "metadata": {
+                "label": "Output",
+                "x": -72,
+                "y": 684,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Bleach Bypass": {
+            "component": "seriously/BleachBypass",
+            "metadata": {
+                "label": "Bleach Bypass",
+                "x": 1008,
+                "y": 720,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "Oscillator",
+                "port": "oscillator"
+            },
+            "tgt": {
+                "process": "Gain",
+                "port": "audionodes"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "Motion to frequency",
+                "port": "product"
+            },
+            "tgt": {
+                "process": "Oscillator",
+                "port": "frequency"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "On Click",
+                "port": "event"
+            },
+            "tgt": {
+                "process": "Listen",
+                "port": "start"
+            }
+        },
+        {
+            "src": {
+                "process": "Voice Button",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "On Click",
+                "port": "element"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Get body",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "Listen key",
+                "port": "element"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "area",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "listen",
+                "port": "element"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Speech div",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "Write Text",
+                "port": "container"
+            }
+        },
+        {
+            "src": {
+                "process": "Listen",
+                "port": "result"
+            },
+            "tgt": {
+                "process": "Write Text",
+                "port": "html"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "Get camera div",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "Set src",
+                "port": "element"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Read camera",
+                "port": "url"
+            },
+            "tgt": {
+                "process": "Set src",
+                "port": "value"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Run",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Read camera",
+                "port": "start"
+            },
+            "metadata": {
+                "route": 9
+            }
+        },
+        {
+            "src": {
+                "process": "Set src",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "Source",
+                "port": "source"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Make Point",
+                "port": "point"
+            },
+            "tgt": {
+                "process": "Make Circle",
+                "port": "center"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "Make Circle",
+                "port": "circle"
+            },
+            "tgt": {
+                "process": "Fill",
+                "port": "items"
+            }
+        },
+        {
+            "src": {
+                "process": "Fill",
+                "port": "fill"
+            },
+            "tgt": {
+                "process": "Draw",
+                "port": "commands"
+            }
+        },
+        {
+            "src": {
+                "process": "Drawing div",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "Draw",
+                "port": "canvas"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Get div",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "Write key",
+                "port": "container"
+            }
+        },
+        {
+            "src": {
+                "process": "Listen key",
+                "port": "keypress"
+            },
+            "tgt": {
+                "process": "Write key",
+                "port": "html"
+            },
+            "metadata": {
+                "route": null
+            }
+        },
+        {
+            "src": {
+                "process": "Gain",
+                "port": "gain"
+            },
+            "tgt": {
+                "process": "Play",
+                "port": "audionodes"
+            }
+        },
+        {
+            "src": {
+                "process": "Listen key",
+                "port": "keypress"
+            },
+            "tgt": {
+                "process": "ASCII to Char",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "listen",
+                "port": "movex"
+            },
+            "tgt": {
+                "process": "Make Point",
+                "port": "x"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "listen",
+                "port": "movey"
+            },
+            "tgt": {
+                "process": "Make Point",
+                "port": "y"
+            },
+            "metadata": {
+                "route": 4
+            }
+        },
+        {
+            "src": {
+                "process": "listen",
+                "port": "start"
+            },
+            "tgt": {
+                "process": "drop",
+                "port": "in"
+            }
+        },
+        {
+            "src": {
+                "process": "listen",
+                "port": "end"
+            },
+            "tgt": {
+                "process": "drop",
+                "port": "in"
+            }
+        },
+        {
+            "src": {
+                "process": "Source",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Bleach Bypass",
+                "port": "source"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "Night Vision",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Target",
+                "port": "source"
+            }
+        },
+        {
+            "src": {
+                "process": "Source",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Night Vision",
+                "port": "source"
+            },
+            "metadata": {
+                "route": 6
+            }
+        },
+        {
+            "src": {
+                "process": "Get canvas",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "Target",
+                "port": "target"
+            }
+        },
+        {
+            "data": "1",
+            "tgt": {
+                "process": "Gain",
+                "port": "gain"
+            }
+        },
+        {
+            "data": true,
+            "tgt": {
+                "process": "Read camera",
+                "port": "video"
+            }
+        },
+        {
+            "data": "#camera",
+            "tgt": {
+                "process": "Get camera div",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "click",
+            "tgt": {
+                "process": "On Click",
+                "port": "type"
+            }
+        },
+        {
+            "data": "#button_voice",
+            "tgt": {
+                "process": "Voice Button",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "body",
+            "tgt": {
+                "process": "Get body",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "body",
+            "tgt": {
+                "process": "area",
+                "port": "selector"
+            }
+        },
+        {
+            "data": false,
+            "tgt": {
+                "process": "Read camera",
+                "port": "audio"
+            }
+        },
+        {
+            "data": "#speech",
+            "tgt": {
+                "process": "Speech div",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "src",
+            "tgt": {
+                "process": "Set src",
+                "port": "attribute"
+            }
+        },
+        {
+            "data": 100000000,
+            "tgt": {
+                "process": "Run",
+                "port": "interval"
+            }
+        },
+        {
+            "data": 0,
+            "tgt": {
+                "process": "Oscillator",
+                "port": "start"
+            }
+        },
+        {
+            "data": "sine",
+            "tgt": {
+                "process": "Oscillator",
+                "port": "waveform"
+            }
+        },
+        {
+            "data": 10,
+            "tgt": {
+                "process": "Motion to frequency",
+                "port": "multiplier"
+            }
+        },
+        {
+            "data": "#out",
+            "tgt": {
+                "process": "Get canvas",
+                "port": "selector"
+            }
+        },
+        {
+            "data": true,
+            "tgt": {
+                "process": "Draw",
+                "port": "drawevery"
+            }
+        },
+        {
+            "data": true,
+            "tgt": {
+                "process": "Draw",
+                "port": "clearevery"
+            }
+        },
+        {
+            "data": "#drawing",
+            "tgt": {
+                "process": "Drawing div",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "#ff0000",
+            "tgt": {
+                "process": "Fill",
+                "port": "fillstyle"
+            }
+        },
+        {
+            "data": 0,
+            "tgt": {
+                "process": "Night Vision",
+                "port": "luminancethreshold"
+            }
+        },
+        {
+            "data": "#80ffff",
+            "tgt": {
+                "process": "Night Vision",
+                "port": "color"
+            }
+        },
+        {
+            "data": "#keyboard",
+            "tgt": {
+                "process": "Get div",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "return String.fromCharCode(x);",
+            "tgt": {
+                "process": "ASCII to Char",
+                "port": "function"
+            }
+        },
+        {
+            "data": 20,
+            "tgt": {
+                "process": "Make Circle",
+                "port": "radius"
+            }
+        },
+        {
+            "data": 100,
+            "tgt": {
+                "process": "Bleach Bypass",
+                "port": "amount"
+            }
+        },
+        {
+            "data": 2,
+            "tgt": {
+                "process": "Night Vision",
+                "port": "amplification"
+            }
+        }
+    ]
+}

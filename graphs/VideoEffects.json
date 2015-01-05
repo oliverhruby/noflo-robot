@@ -1,0 +1,118 @@
+{
+    "properties": {
+        "name": "VideoEffects",
+        "environment": {
+            "type": "noflo-browser"
+        }
+    },
+    "inports": {
+        "source.source": {
+            "process": "Source",
+            "port": "source"
+        }
+    },
+    "outports": {
+        "element_3g632.element": {
+            "process": "element_3g632",
+            "port": "element"
+        }
+    },
+    "groups": [],
+    "processes": {
+        "Source": {
+            "component": "seriously/SetSource",
+            "metadata": {
+                "label": "Source",
+                "x": 144,
+                "y": 792,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element_3g632": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": 252,
+                "y": 720,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Target": {
+            "component": "seriously/SetTarget",
+            "metadata": {
+                "label": "Target",
+                "x": 360,
+                "y": 792,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "NightVision": {
+            "component": "seriously/NightVision",
+            "metadata": {
+                "label": "NightVision",
+                "x": 252,
+                "y": 828,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "element_3g632",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "Target",
+                "port": "target"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "NightVision",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "Target",
+                "port": "source"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Source",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "NightVision",
+                "port": "source"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "data": "#out",
+            "tgt": {
+                "process": "element_3g632",
+                "port": "selector"
+            }
+        },
+        {
+            "data": 4,
+            "tgt": {
+                "process": "NightVision",
+                "port": "amplification"
+            }
+        }
+    ]
+}

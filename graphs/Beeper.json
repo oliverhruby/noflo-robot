@@ -1,0 +1,98 @@
+{
+    "properties": {
+        "name": "Beeper",
+        "environment": {
+            "type": "noflo-browser",
+            "content": ""
+        },
+        "description": "Sound module",
+        "icon": "bullhorn"
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "Oscillator": {
+            "component": "webaudio/Oscillator",
+            "metadata": {
+                "label": "Oscillator",
+                "x": 468,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Play": {
+            "component": "webaudio/Play",
+            "metadata": {
+                "label": "Play",
+                "x": 684,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "Gain": {
+            "component": "webaudio/Gain",
+            "metadata": {
+                "label": "Gain",
+                "x": 576,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "Gain",
+                "port": "gain"
+            },
+            "tgt": {
+                "process": "Play",
+                "port": "audionodes"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "Oscillator",
+                "port": "oscillator"
+            },
+            "tgt": {
+                "process": "Gain",
+                "port": "audionodes"
+            },
+            "metadata": {}
+        },
+        {
+            "data": "1",
+            "tgt": {
+                "process": "Gain",
+                "port": "gain"
+            }
+        },
+        {
+            "data": 1,
+            "tgt": {
+                "process": "Oscillator",
+                "port": "start"
+            }
+        },
+        {
+            "data": "sine",
+            "tgt": {
+                "process": "Oscillator",
+                "port": "waveform"
+            }
+        },
+        {
+            "data": "1000",
+            "tgt": {
+                "process": "Oscillator",
+                "port": "frequency"
+            }
+        }
+    ]
+}

@@ -1,0 +1,138 @@
+{
+    "properties": {
+        "name": "SpeechRecognition",
+        "environment": {
+            "type": "noflo-browser"
+        }
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "Listen": {
+            "component": "interaction/ListenSpeech",
+            "metadata": {
+                "label": "Listen",
+                "x": -432,
+                "y": 792,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "button": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "button",
+                "x": -648,
+                "y": 792,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "click": {
+            "component": "dom/Listen",
+            "metadata": {
+                "label": "click",
+                "x": -540,
+                "y": 792,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "element_ta8eu": {
+            "component": "dom/GetElement",
+            "metadata": {
+                "label": "element",
+                "x": -432,
+                "y": 684,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "show_zuei8": {
+            "component": "dom/WriteHtml",
+            "metadata": {
+                "label": "show",
+                "x": -324,
+                "y": 792,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "button",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "click",
+                "port": "element"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "click",
+                "port": "event"
+            },
+            "tgt": {
+                "process": "Listen",
+                "port": "start"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "src": {
+                "process": "Listen",
+                "port": "result"
+            },
+            "tgt": {
+                "process": "show_zuei8",
+                "port": "html"
+            },
+            "metadata": {
+                "route": 2
+            }
+        },
+        {
+            "src": {
+                "process": "element_ta8eu",
+                "port": "element"
+            },
+            "tgt": {
+                "process": "show_zuei8",
+                "port": "container"
+            },
+            "metadata": {
+                "route": 7
+            }
+        },
+        {
+            "data": "#button_voice",
+            "tgt": {
+                "process": "button",
+                "port": "selector"
+            }
+        },
+        {
+            "data": "click",
+            "tgt": {
+                "process": "click",
+                "port": "type"
+            }
+        },
+        {
+            "data": "#speech",
+            "tgt": {
+                "process": "element_ta8eu",
+                "port": "selector"
+            }
+        }
+    ]
+}
